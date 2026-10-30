@@ -96,6 +96,82 @@ self.play(
 
 for codon in codons:
     self.play(ribosome.animate.move_to(codon.get_center() + UP * 0.35))`,
+    "11_binary_search": `while lo <= hi:
+    mid = (lo + hi) // 2
+    self.play(mid_p.animate.next_to(cells[mid], UP))
+    if ARR[mid] < TARGET:
+        gone, lo = range(lo, mid + 1), mid + 1
+    else:
+        gone, hi = range(mid, hi + 1), mid - 1
+    self.play(*[cells[i].animate.set_opacity(0.2) for i in gone])`,
+    "12_recursion_stack": `for n in range(N, -1, -1):              # calls: push frames
+    f = frame(n, f"fact({n})   n = {n}", PURPLE_C)
+    self.play(FadeIn(f, shift=DOWN * 0.4))
+
+for n in range(1, N + 1):               # returns: pop frames
+    self.play(FadeOut(frames[n - 1], shift=UP * 0.4))
+    self.play(Transform(frames[n][1],
+              Text(f"{n} * {value} = {n * value}")))`,
+    "13_bfs_graph": `queue = deque([START])
+while queue:
+    u = queue.popleft()
+    self.play(FadeOut(q_items[0]), set_state(u, PURPLE_C), *q_layout())
+    for v in adj[u]:
+        if v not in dist:
+            dist[v] = dist[u] + 1
+            queue.append(v)
+            self.play(set_state(v, YELLOW_M), FadeIn(q_box(v)))`,
+    "14_hash_table": `idx = h(key) % SIZE
+self.play(item.animate.move_to(machine))          # into hash()
+self.play(FadeIn(calc), buckets[idx][0].animate.set_stroke(YELLOW_M))
+anchor = chains[idx][-1] if chains[idx] else buckets[idx]
+self.play(item.animate.next_to(anchor, RIGHT, buff=0.35),
+          GrowArrow(link))                         # chain on collision`,
+    "15_big_o_race": `n = ValueTracker(0.5)
+for name, f, color in CURVES:
+    plots.add(always_redraw(lambda f=f, color=color: axes.plot(
+        f, x_range=[0.5, visible_end(f)], color=color)))
+self.add(plots, tags, counter)
+self.play(n.animate.set_value(20), run_time=9, rate_func=linear)`,
+    "16_newton_first_law": `def x_ice(t):    return X0 + V0 * t                 # ΣF = 0
+def x_carpet(t):
+    ts = min(t, V0 / DECEL)
+    return X0 + V0 * ts - 0.5 * DECEL * ts ** 2       # friction
+
+p_ice = always_redraw(lambda: puck(x_ice(clock.get_value()), ...))
+p_car = always_redraw(lambda: puck(x_carpet(clock.get_value()), ...))
+self.play(clock.animate.set_value(T_END), rate_func=linear)`,
+    "17_newton_second_law": `for m in (1.0, 2.0):
+    a = F / m                                   # Newton's 2nd law
+    def cart(a=a, ...):
+        x = X0 + SCALE * 0.5 * a * t.get_value() ** 2
+        ...
+    carts.add(always_redraw(cart))
+lines = [ax.plot(lambda s: a * s, ...) for a in accs]   # v = a t`,
+    "18_newton_third_law": `v1, v2 = -IMPULSE / M1, IMPULSE / M2     # same impulse, opposite signs
+
+def forces():                            # only while pushing
+    if t.get_value() >= T_PUSH:
+        return VGroup()
+    return VGroup(Arrow(a, a + LEFT * 1.6),   # F(2→1)
+                  Arrow(b, b + RIGHT * 1.6))  # F(1→2): same length
+force_arrows = always_redraw(forces)`,
+    "19_cyclist_air_drag": `def drag(v):  return 0.5 * RHO * CDA * v ** 2
+def propulsion(v):  return min(POWER / v, F_MAX)
+
+for i in range(len(ts)):              # m dv/dt = P/v - drag - roll
+    v += dt * (propulsion(v) - drag(v) - F_ROLL) / MASS
+
+wheel.add_updater(lambda m, dt: m.rotate(-v_now() * dt * 1.2))
+arrows = always_redraw(force_arrows)  # lengths follow the physics`,
+    "20_newton_cannon": `while t < t_max:                          # velocity Verlet
+    r = r + v * dt + 0.5 * a * dt ** 2
+    a_new = -GM * r / np.linalg.norm(r) ** 3   # inverse square
+    v = v + 0.5 * (a + a_new) * dt
+    a = a_new
+
+path = VMobject().set_points_smoothly(points)
+self.play(Create(path), MoveAlongPath(ball, path))`,
   };
 
   /* ---------- gallery ---------- */

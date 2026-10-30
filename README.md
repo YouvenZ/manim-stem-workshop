@@ -19,6 +19,16 @@ behind 3Blue1Brown) and build your own classroom videos.
 | 08 | Code / ML | Gradient descent & learning rate | contours, `Arrow` steps, loss curve |
 | 09 | Bioinformatics | Needleman–Wunsch global alignment | DP grid, colour scale, traceback |
 | 10 | Bioinformatics | Central dogma: DNA → RNA → protein | tiles, `Brace`, moving machinery |
+| 11 | Code | Binary search | pointer mobjects, dimming discarded cells |
+| 12 | Code | Recursion & the call stack | stacked frames, push/pop with `shift` |
+| 13 | Code | Breadth-first search on a graph | graph from dicts, queue as `VGroup` |
+| 14 | Code | Hash tables & collisions | hash "machine", chained buckets |
+| 15 | Code | Big-O: a race of growth rates | one `ValueTracker`, many plots |
+| 16 | Physics | Newton's 1st law: inertia (ice vs carpet) | shared clock, live v(t) |
+| 17 | Physics | Newton's 2nd law: F = ma | kinematics, arrows riding objects |
+| 18 | Physics | Newton's 3rd law: skaters pushing apart | paired forces, momentum bars |
+| 19 | Physics | Air drag on a fast cyclist (frottement de l'air) | ODE, `dt` updaters, force–speed graph |
+| 20 | Physics | Newton's cannon: falling vs orbiting | Verlet orbits, `MoveAlongPath` |
 
 `00_hello_manim.py` is the warm-up scene used in the slides.
 
@@ -29,7 +39,7 @@ manim-stem-workshop/
 ├── environment.yml          # conda env (recommended)
 ├── requirements.txt         # pip alternative
 ├── manim.cfg                # shared background colour / frame rate
-├── scenes/                  # the 11 Manim scenes (00 = warm-up, 01–10 = gallery)
+├── scenes/                  # the 21 Manim scenes (00 = warm-up, 01–20 = gallery)
 ├── exercises/               # hands-on templates (+ solutions/)
 ├── scripts/render_all.py    # render everything and publish it to docs/
 ├── docs/                    # ← the GitHub Pages site
@@ -87,7 +97,7 @@ pip install -r requirements.txt
 # one scene, preview, low quality (fast iteration)
 manim -pql scenes/01_pythagoras.py Pythagoras
 
-# everything -> docs/videos, docs/posters, docs/code (720p30, ~2–3 min)
+# everything -> docs/videos, docs/posters, docs/code (720p30, ~5 min)
 python scripts/render_all.py
 python scripts/render_all.py -q h          # 1080p60
 python scripts/render_all.py --only 05     # just one scene

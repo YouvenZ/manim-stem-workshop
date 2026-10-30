@@ -14,25 +14,23 @@ Usage (from the repository root, with the conda env active):
     python scripts/render_all.py --only 05    # scenes whose slug starts with "05"
 """
 import argparse
+import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCENES = [
-    ("00_hello_manim.py", "HelloManim"),
-    ("01_pythagoras.py", "Pythagoras"),
-    ("02_fourier_series.py", "FourierSquareWave"),
-    ("03_pendulum_phase_space.py", "PendulumPhaseSpace"),
-    ("04_standing_waves.py", "StandingWaves"),
-    ("05_dna_double_helix.py", "DNAHelix"),
-    ("06_predator_prey.py", "PredatorPrey"),
-    ("07_bubble_sort.py", "BubbleSort"),
-    ("08_gradient_descent.py", "GradientDescent"),
-    ("09_needleman_wunsch.py", "NeedlemanWunsch"),
-    ("10_central_dogma.py", "CentralDogma"),
-]
+
+
+def discover_scenes():
+    """Every scenes/NN_*.py file and the first Scene class defined in it."""
+    found = []
+    for path in sorted((ROOT / "scenes").glob("[0-9][0-9]_*.py")):
+        match = re.search(r"^class\s+(\w+)\s*\(", path.read_text(encoding="utf-8"), re.MULTILINE)
+        if match:
+            found.append((path.name, match.group(1)))
+    return found
 
 
 def run(cmd):
@@ -52,7 +50,7 @@ def main():
     for d in out_dirs.values():
         d.mkdir(parents=True, exist_ok=True)
 
-    for filename, cls in SCENES:
+    for filename, cls in discover_scenes():
         if not filename.startswith(args.only):
             continue
         slug = Path(filename).stem
