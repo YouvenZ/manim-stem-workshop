@@ -1,0 +1,10 @@
+# Manim render cache (the published videos live in docs/videos/)
+build/
+media/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.vscode/
+.DS_Store
+Thumbs.db

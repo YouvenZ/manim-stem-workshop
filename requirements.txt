@@ -1,0 +1,9 @@
+# pip alternative to environment.yml (needs ffmpeg + a LaTeX distribution on PATH,
+# plus on Linux: libcairo2-dev libpango1.0-dev).
+#   python -m venv .venv && .venv\Scripts\activate   (Windows)
+#   python -m venv .venv && source .venv/bin/activate (macOS / Linux)
+#   pip install -r requirements.txt
+manim>=0.22,<0.23
+numpy
+scipy
+jupyterlab

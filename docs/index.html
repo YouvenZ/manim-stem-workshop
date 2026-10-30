@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animate to Educate — Manim for STEM teachers</title>
+  <meta name="description" content="A hands-on workshop for STEM teachers: create math, physics, biology, code and bioinformatics animations with Manim (Python).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.10.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#"><span class="logo"></span> Animate to Educate</a>
+  <nav>
+    <a href="#gallery">Gallery</a>
+    <a href="#start">Get started</a>
+    <a href="#agenda">Agenda</a>
+    <a href="slides/">Slides</a>
+    <a id="repo-link" href="#">GitHub</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <span class="eyebrow">Workshop · STEM teachers · Python</span>
+    <h1>Turn equations into<br><span class="gradient-text">moving ideas</span></h1>
+    <p class="lead">
+      Learn <b>Manim</b>, the animation engine behind 3Blue1Brown, and build your own
+      classroom videos for mathematics, physics, biology, code and bioinformatics —
+      no video-editing skills required, just Python.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="slides/">▶ Open the slides</a>
+      <a class="btn" href="#gallery">Browse 10 examples</a>
+      <a class="btn" href="#start">Set up in 5 minutes</a>
+    </div>
+    <div class="chips" id="hero-chips"></div>
+  </div>
+  <div class="scroll-hint">scroll ↓</div>
+</section>
+
+<section class="block reveal-up">
+  <div class="stats">
+    <div class="stat"><b>10</b><span>ready-to-teach animations</span></div>
+    <div class="stat"><b>5</b><span>disciplines: math · physics · bio · code · bioinfo</span></div>
+    <div class="stat"><b>~100</b><span>lines of Python per video</span></div>
+    <div class="stat"><b>0 €</b><span>open-source tools, hosted free on GitHub Pages</span></div>
+  </div>
+</section>
+
+<section class="block" id="gallery">
+  <h2 class="section-title reveal-up">Gallery</h2>
+  <p class="section-sub reveal-up">Hover a card to preview, click to watch with the full source code side by side.
+    Every video was produced by the Python file you see next to it.</p>
+  <div class="filters reveal-up" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="block" id="start">
+  <h2 class="section-title reveal-up">Get started</h2>
+  <p class="section-sub reveal-up">Everything runs locally on Windows, macOS or Linux.</p>
+  <div class="steps">
+    <div class="step reveal-up">
+      <div>
+        <h3>Get the workshop files</h3>
+        <p>Clone the repository (or download it as a ZIP from GitHub).</p>
+        <div class="shell"><button class="copy">copy</button><pre><span class="p">$ </span>git clone <span class="repo-url">https://github.com/YouvenZ/manim-stem-workshop</span>.git
+<span class="p">$ </span>cd manim-stem-workshop</pre></div>
+      </div>
+    </div>
+    <div class="step reveal-up">
+      <div>
+        <h3>Create the Python environment</h3>
+        <p>Conda is the easiest route: it ships Manim, its Cairo/Pango libraries and FFmpeg.</p>
+        <div class="tabs" data-group="env">
+          <button class="active" data-tab="conda">conda (recommended)</button>
+          <button data-tab="pip">pip / venv</button>
+        </div>
+        <div class="shell" data-pane="conda"><button class="copy">copy</button><pre><span class="p">$ </span>conda env create -f environment.yml
+<span class="p">$ </span>conda activate manim-workshop
+<span class="p">$ </span>manim --version            <span class="c"># Manim Community v0.22.x</span></pre></div>
+        <div class="shell" data-pane="pip" hidden><button class="copy">copy</button><pre><span class="c"># needs FFmpeg on your PATH (and on Linux: libcairo2-dev libpango1.0-dev)</span>
+<span class="p">$ </span>python -m venv .venv
+<span class="p">$ </span>.venv\Scripts\activate      <span class="c"># macOS/Linux: source .venv/bin/activate</span>
+<span class="p">$ </span>pip install -r requirements.txt</pre></div>
+      </div>
+    </div>
+    <div class="step reveal-up">
+      <div>
+        <h3>Install LaTeX (for equations)</h3>
+        <p><code>MathTex</code> needs a LaTeX distribution: <a href="https://miktex.org/download">MiKTeX</a> (Windows),
+          <a href="https://www.tug.org/mactex/">MacTeX</a> (macOS) or <code>sudo apt install texlive-latex-extra texlive-fonts-extra dvisvgm</code> (Linux).
+          Scenes that only use <code>Text</code> work without it.</p>
+      </div>
+    </div>
+    <div class="step reveal-up">
+      <div>
+        <h3>Render your first scene</h3>
+        <p><code>-p</code> previews when done, <code>-ql</code> renders fast at 480p while you iterate.</p>
+        <div class="shell"><button class="copy">copy</button><pre><span class="p">$ </span>manim -pql scenes/00_hello_manim.py HelloManim
+<span class="p">$ </span>python scripts/render_all.py   <span class="c"># all scenes -> docs/videos/</span></pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="agenda">
+  <h2 class="section-title reveal-up">Workshop agenda <span style="color:var(--muted);font-weight:500">(3 hours)</span></h2>
+  <p class="section-sub reveal-up">A suggested flow; every block maps to a section of the slides.</p>
+  <div class="timeline">
+    <div class="slot reveal-up"><time>0:00 – 0:20</time><h4>Why animate? · What is Manim?</h4><p>Dynamic representations, cognitive load, and a tour of the gallery.</p></div>
+    <div class="slot reveal-up"><time>0:20 – 0:45</time><h4>Setup & “Hello, Manim”</h4><p>Environment, CLI flags, first scene, the Scene → Mobject → Animation model.</p></div>
+    <div class="slot reveal-up"><time>0:45 – 1:30</time><h4>Core toolkit</h4><p>Axes & graphs, MathTex, ValueTracker + updaters, colours and layout.</p></div>
+    <div class="slot reveal-up"><time>1:30 – 1:45</time><h4>Break ☕</h4><p>Render something in the background!</p></div>
+    <div class="slot reveal-up"><time>1:45 – 2:40</time><h4>Hands-on by discipline</h4><p>Pick an example, modify it, then build your own from the exercise templates.</p></div>
+    <div class="slot reveal-up"><time>2:40 – 3:00</time><h4>Share & publish</h4><p>Pedagogy tips, embedding in slides/LMS, publishing on GitHub Pages, show & tell.</p></div>
+  </div>
+</section>
+
+<footer>
+  Built with <a href="https://www.manim.community/">Manim Community</a> and <a href="https://revealjs.com/">reveal.js</a> ·
+  Content free to reuse in your classroom (MIT).
+</footer>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="modal-head">
+      <div><span class="tag" id="m-tag"></span><h3 id="m-title"></h3></div>
+      <button class="close" id="m-close" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-video">
+        <video id="m-video" controls playsinline></video>
+        <div class="speed" id="m-speed">speed
+          <button data-rate="0.5">0.5×</button><button data-rate="1" class="active">1×</button><button data-rate="1.5">1.5×</button><button data-rate="2">2×</button>
+        </div>
+        <p id="m-summary"></p>
+        <div class="pills" id="m-pills"></div>
+        <div class="idea"><b>In class:</b> <span id="m-class"></span></div>
+        <div class="cmd" id="m-cmd"></div>
+      </div>
+      <div class="modal-code">
+        <div class="code-bar"><span id="m-file"></span><span><button id="m-copy">Copy code</button> <a id="m-gh" class="btn" style="padding:5px 12px;font-size:.85rem" target="_blank" rel="noopener">GitHub ↗</a></span></div>
+        <pre><code class="language-python" id="m-code">Loading…</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">Copied!</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.10.0/highlight.min.js"></script>
+<script src="assets/js/examples.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

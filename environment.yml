@@ -1,0 +1,19 @@
+# Conda environment for the "Manim for STEM Teachers" workshop.
+#
+#   conda env create -f environment.yml
+#   conda activate manim-workshop
+#
+# LaTeX is NOT shipped by conda: install MiKTeX (Windows), MacTeX (macOS)
+# or texlive (Linux) separately if you want MathTex / Tex objects.
+name: manim-workshop
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - manim=0.22
+  - ffmpeg
+  - numpy
+  - scipy
+  - pip
+  - jupyterlab        # optional: run Manim inside notebooks with %%manim
+  - ipykernel
